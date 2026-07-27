@@ -40,4 +40,23 @@ class stringimpl:public string
         }
         std::cout << "\n" << std::endl;
     }
+
+    void append(const stringimpl& append) 
+    {
+        if ((currentIndex + append.currentIndex) <= append.MAX_LENGTH-1)
+        {
+            int startAppendIndex = currentIndex+1;
+            int initial = 0;
+            while (startAppendIndex <= currentIndex+append.currentIndex && append.chr[initial] != '\0')
+            {
+                setChr(append.chr[initial]);             
+                startAppendIndex++;
+                initial++;
+            }
+        }else 
+        {
+            std::cout << "String overflow error !!!..." << std::endl;
+        }
+    }
+    
 };

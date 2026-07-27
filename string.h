@@ -5,6 +5,7 @@
 #include <iostream>
 #include <mutex>
 #include <thread>
+#include <algorithm>
 
 class string 
 {
@@ -12,23 +13,35 @@ class string
   char* chr;
   int currentIndex;
   std::mutex mutex;
-
-  private:
   int MAX_LENGTH = 1024*1024;
   
   public:
-  bool compare(const string& a, const string& b);
   virtual const int getLength() = 0; // length
   virtual const char charAt(int index) = 0; // charAt
   virtual void setChr(char ch) = 0; //pure virtual 
-  virtual void printAllLetters() = 0;
+  virtual void printAllLetters() = 0; // pure virtual
   string() 
   {
      chr = new char[MAX_LENGTH];
   }
   string(const string& other); // copy constructor 
   string(string&& other); // move constructor
-  virtual ~string() {}; // virtual destructor
+  string& operator=(string&& other) 
+  {
+    if (this != &other)
+    {
+      chr = other.chr;
+      currentIndex = other.currentIndex;
+      other.chr = nullptr;
+      other.currentIndex = 0;
+    }
+    return *this;
+  }
+  string& operator=(const string& other) = delete;
+  virtual ~string() {
+    /// for deleting array 
+    delete[] chr;
+  }; // virtual destructor
 };
 
 #endif
