@@ -1,3 +1,3 @@
 all:
-	g++ strings.cpp -g -std=c++17 -o string && ./string
+	g++ main.cpp cstring.cpp -g -std=c++17 -o string && ./string
 

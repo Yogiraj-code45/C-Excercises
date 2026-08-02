@@ -11,7 +11,7 @@ class cstring
 {
   protected:
   char* chr;
-  int currentIndex;
+  int currentIndex = 0;
   std::mutex mutex;
   int MAX_LENGTH = 1024*1024;
   
@@ -22,7 +22,7 @@ class cstring
   int calculate_length(char* len)
   {
     int count = 0;
-     while (*len != '0')
+     while (*len != '\0')
      {
        len++;
        count++;
@@ -31,7 +31,14 @@ class cstring
   }
   cstring(char* t) 
   {
-     chr = new char[calculate_length(t)];
+     chr = new char[calculate_length(t) + 1];
+     while (*t != '\0')
+     {
+        chr[currentIndex] = *t;
+        currentIndex++;
+        t++;
+     }
+     chr[currentIndex] = '\0';
   }
   cstring(const cstring& other); // copy constructor 
   cstring(cstring&& other); // move constructor

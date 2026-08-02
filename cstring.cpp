@@ -4,23 +4,23 @@ char* cstring::append(char* secondString)
 {
     int currentSize = calculate_length(this->chr);
     int newSize = calculate_length(secondString);
-    char* newChr = new char[currentSize+newSize];
+    char* newChr = new char[currentSize+newSize+1];
     int index = 0;
     while (index != currentSize)
     {
         newChr[index] = chr[index];
         index++;
     }
-    int size = 0;
-    while (size != newSize)
+    int size = currentSize;
+    while (size != currentSize+newSize)
     {
-        if (size == 0)
-        {
-            newChr[size] = secondString[size];
-            size++;
-        }
+        newChr[size] = secondString[size - currentSize];
+        size++;
     }
+    delete[] this->chr;
     this->chr = newChr;
+    this->chr[currentSize + newSize] = '\0';
+    this->currentIndex = currentSize + newSize;
     return this->chr;
 }
 
