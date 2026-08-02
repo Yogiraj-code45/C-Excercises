@@ -16,9 +16,9 @@ class cstring
   int MAX_LENGTH = 1024*1024;
   
   public:
-  cstring append(); // length
+  char* append(char* secondString); // length
   char at(int index); // charAt
-  cstring c_str();
+  std::string c_str(); // 
   int calculate_length(char* len)
   {
     int count = 0;
